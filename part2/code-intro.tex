@@ -1,0 +1,158 @@
+\documentclass[12pt]{article}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{.5em}
+
+\usepackage{framed}
+\newcounter{problem}
+\newcounter{problempart}[problem]
+\newcounter{solutionpart}[problem]
+\newenvironment{problem}{\stepcounter{problem}\noindent{\bf\arabic{problem}.}}{\setcounter{problempart}{0}\setcounter{solutionpart}{0}}
+\newenvironment{solution}{\par\textcolor{green!50!black}\bgroup}{\egroup\par}
+\newcommand{\qpart}{\stepcounter{problempart}${}$\\\noindent{(\alph{problempart})} }
+\newcommand{\spart}{\stepcounter{solutionpart}${}$\\\noindent{(\alph{solutionpart})} }
+\newcommand{\TODO}{\textcolor{red}{$\blacksquare$}}
+\newcommand{\SOL}[1]{\textcolor{green!50!black}{#1}}
+
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{amsmath,mathabx,MnSymbol}
+\usepackage{color,tikz}
+\usepackage{pstricks}
+\usepackage{pst-plot,pst-node}
+\usepackage{footnote,enumitem}
+\usepackage{longtable}
+\newcommand{\mx}[1]{\begin{pmatrix}#1\end{pmatrix}}
+\definecolor{dkgreen}{rgb}{0,.5,0}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\cc}{\mathbf{c}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\zz}{\mathbf{z}}
+\newcommand{\ee}{\mathbf{e}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\qq}{\mathbf{q}}
+\renewcommand{\AA}{\mathbf{A}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\nn}{\mathbf{n}}
+\newcommand{\gp}[1]{\left(#1\right)}
+
+\newcommand{\TODOL}[1]{\textcolor{red}{\underline{\hspace{#1 cm}}}}
+
+\usepackage{listings}
+
+\lstset{
+  language=C++,
+  showstringspaces=false,
+  identifierstyle=\color{magenta},
+  basicstyle=\color{magenta},
+  keywordstyle=\color{blue},
+  identifierstyle=\color{black},
+  commentstyle=\color{green},
+  stringstyle=\color{red}
+}
+
+\begin{document}
+
+\title{CS130 - LAB - Programming Prep}
+\date{}
+\author{Name: \TODOL7\qquad\qquad SID: \TODOL4}
+\maketitle
+\begin{center}
+\end{center}
+
+\newcommand{\CM}[1]{\textcolor{blue}{\texttt{#1}}}
+
+In this course there will be several programming assignments that involve completing the implementation of functions in a larger body of existing code. This assignment will require you to familiarize yourself with the code used in the next assignment.
+
+Before you begin, you will need to decide what environment you will be using for programming and compiling. If you aren't familiar with seting up programming environments, you can use UCR's cs130 server. Please see the document ``Programming Assignments on cs130.cs.ucr.edu''on Canvas for more information. If you choose to use a different environment, you are responsible for setting up the environment and installing the appropriate libraries.
+
+\begin{enumerate}
+\item If necessary, download or upload the hw-1 archive from Canvas to the environment you plan to use for programming assignments.
+\item Extract the hw-1 archive and navigate to the newly extracted 'part2' directory.
+\item Look through all the code files ('h' and 'cpp' extensions) and find all the locations with ``TODO''. In only those files, add the following header to the top of the file (fill in your information appropriately):
+\begin{verbatim}
+// Student Name: [Your name]
+// Student ID: [Your ID]
+\end{verbatim}
+\item Which file defines the struct ``Debug\_Scope''?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item Which file defines the global constant ``small\_t''?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item How can you use the ray\_tracer program to compare a test file to a solution image?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item What additional output is generated when you do this?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item What should the Object member function  ``Intersection'' do if there are no intersections? It is okay if you don't understand why yet.
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item What should the Box member function  ``Union'' do?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item Where is the variable ``all\_objects'' declared, and what should you use it for?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+\item What does the ``componentwise\_min'' function do?
+  \begin{solution}
+  \textbf{\textcolor{red}{\TODO}}
+  \end{solution}
+
+\item Compile the code using the provided ``SConstruct'' file. Include a screenshot of your successful compilation.
+\item Run the provided grading-script.py file on the directory included with the assignment that contains test files, name ``tests-hw2''.
+\item Make a sub-directory named ``hw-1''.
+\item Copy only the ``h'' and ``cpp'' files from the assignment directory to ``hw-1''.
+\item Create a zip or tar archive file containing the ``hw-1'' directory. This archive file should be named something like ``[yournetid]-hw-1.zip'' (ex: ``tamars-hw-1.zip''). If you were to run the command ``unzip -l [yournetid]-hw-1.zip'' on a properly constructed archive file, the output should look something like this:
+\begin{verbatim}
+Archive:  tamars-hw-1.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  01-06-2026 12:56   hw-1/
+     1036  01-06-2026 12:56   hw-1/box.h
+      423  01-06-2026 12:56   hw-1/shader.h
+     2988  01-06-2026 12:56   hw-1/parse.cpp
+      213  01-06-2026 12:56   hw-1/dump_png.h
+     1198  01-06-2026 12:56   hw-1/box.cpp
+      812  01-06-2026 12:56   hw-1/registration.cpp
+     4514  01-06-2026 12:56   hw-1/vec.h
+      379  01-06-2026 12:56   hw-1/light.h
+     1178  01-06-2026 12:56   hw-1/camera.cpp
+     1408  01-06-2026 12:56   hw-1/misc.h
+     1732  01-06-2026 12:56   hw-1/camera.h
+      518  01-06-2026 12:56   hw-1/sphere.h
+     4021  01-06-2026 12:56   hw-1/parse.h
+      396  01-06-2026 12:56   hw-1/flat_shader.cpp
+      193  01-06-2026 12:56   hw-1/color.h
+      505  01-06-2026 12:56   hw-1/plane.h
+     1428  01-06-2026 12:56   hw-1/render_world.h
+     3108  01-06-2026 12:56   hw-1/dump_png.cpp
+      737  01-06-2026 12:56   hw-1/hit.h
+      425  01-06-2026 12:56   hw-1/fixed_color.h
+      672  01-06-2026 12:56   hw-1/ray.h
+     1340  01-06-2026 12:56   hw-1/object.h
+      516  01-06-2026 12:56   hw-1/sphere.cpp
+      550  01-06-2026 12:56   hw-1/flat_shader.h
+      545  01-06-2026 12:56   hw-1/plane.cpp
+     5974  01-06-2026 12:56   hw-1/main.cpp
+     1255  01-06-2026 12:56   hw-1/render_world.cpp
+---------                     -------
+    38064                     28 files
+\end{verbatim}
+\item Submit this archive file to Canvas as your homework 1 submission.
+\end{enumerate}
+
+\end{document}
