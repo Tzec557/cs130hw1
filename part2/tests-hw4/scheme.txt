@@ -1,0 +1,19 @@
+# <num-points> <max-error> <test>
+3 0.10 tests-hw4/00.txt
+1 0.10 tests-hw4/01.txt
+1 0.10 tests-hw4/02.txt
+3 0.10 tests-hw4/05.txt
+1 0.10 tests-hw4/06.txt
+1 0.10 tests-hw4/07.txt
+1 0.10 tests-hw4/08.txt
+1 0.10 tests-hw4/09.txt
+1 0.10 tests-hw4/10.txt
+3 0.10 tests-hw4/12.txt
+1 0.10 tests-hw4/13.txt
+1 0.10 tests-hw4/14.txt
+1 0.10 tests-hw4/15.txt
+1 0.10 tests-hw4/16.txt
+1 0.10 tests-hw4/17.txt
+5 0.10 tests-hw4/18.txt
+1 0.10 tests-hw4/19.txt
+1 0.10 tests-hw4/20.txt

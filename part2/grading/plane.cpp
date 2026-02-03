@@ -15,8 +15,20 @@ Plane::Plane(const Parse* parse,std::istream& in)
 // Intersect with the plane.  The plane's normal points outside.
 Hit Plane::Intersection(const Ray& ray, int part) const
 {
-    TODO;
-    return {};
+    // TODO;
+    Hit hit;
+    hit.dist = -1;
+
+    float denominator = dot(ray.direction, normal);
+   if (std::abs(denominator) > 1e-6){
+        float t = dot(x - ray.endpoint, normal) / denominator;
+
+        if (t >= small_t)
+        {
+            hit.dist = t;
+        }
+    }
+    return hit;
 }
 
 vec3 Plane::Normal(const Ray& ray, const Hit& hit) const

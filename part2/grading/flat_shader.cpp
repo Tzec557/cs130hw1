@@ -12,5 +12,8 @@ vec3 Flat_Shader::
 Shade_Surface(const Render_World& render_world,const Ray& ray,const Hit& hit,
     const vec3& intersection_point,const vec3& normal,int recursion_depth) const
 {
+    Debug_Scope scope;
+    Pixel_Print("flat shader; color: ", color->Get_Color(hit.uv));
+
     return color->Get_Color(hit.uv);
 }

@@ -119,6 +119,7 @@ int main(int argc, char** argv)
         // Set a global variable to indicate that we are debugging one pixel.
         // This way you can do: debug.Print("foo = ",foo);
         Debug_Scope::enable = true;
+        Pixel_Print("debug pixel: -x ", test_x, " -y ", test_y);
 
         // Render just the pixel we are debugging
         render_world.Render_Pixel(ivec2(test_x,test_y));
