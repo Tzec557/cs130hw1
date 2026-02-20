@@ -14,55 +14,6 @@ Phong_Shader::Phong_Shader(const Parse* parse,std::istream& in)
     in>>specular_power;
 }
 
-// vec3 Phong_Shader::
-// Shade_Surface(const Render_World& render_world,const Ray& ray,const Hit& hit,
-//     const vec3& intersection_point,const vec3& normal,int recursion_depth) const
-// {
-//     vec3 color = (*color_ambient) * (*render_world.ambient_color) * render_world.ambient_intensity;
-//     // TODO; //determine the color
-//     for (const auto* light : render_world.lights) {
-//         vec3 light_dir = (light->position - intersection_point);
-//         double distance = light_dir.magnitude();
-//         light_dir = light_dir.normalized();
-
-//         double cos_theta = std::max(0.0, dot(normal, light_dir));
-//         vec3 diffuse = *color_diffuse * light->Emitted_Light(light_dir) * cos_theta;
-//         vec3 reflection = (2.0 * dot(normal, light_dir) * normal - light_dir).normalized();
-//         vec3 view_dir = -ray.direction.normalized();
-        
-//         double cos_alpha = std::max(0.0, dot(reflection, view_dir));
-//         vec3 specular = *color_specular * light->Emitted_Light(light_dir) * std::pow(cos_alpha, specular_power);
-//         color += (diffuse + specular);
-//     }
-//     return color;
-// }
-
-// vec3 Phong_Shader::
-// Shade_Surface(const Render_World& render_world,const Ray& ray,const Hit& hit,
-//     const vec3& intersection_point,const vec3& normal,int recursion_depth) const
-// {
-//     vec3 color = color_ambient->Get_Color(hit.uv) * render_world.ambient_color->Get_Color(hit.uv) * render_world.ambient_intensity;
-
-//     for (const auto* light : render_world.lights) {
-//         vec3 light_dir = (light->position - intersection_point).normalized();
-
-//         double cos_theta = std::max(0.0, dot(normal, light_dir));
-
-//         vec3 diffuse = color_diffuse->Get_Color(hit.uv) * light->Emitted_Light(light_dir) * cos_theta;
-
-//         vec3 view_dir = -ray.direction.normalized();
-//         vec3 reflection = (2.0 * dot(normal, light_dir) * normal - light_dir).normalized();
-
-//         double cos_alpha = std::max(0.0, dot(reflection, view_dir));
-
-//         vec3 specular = color_specular->Get_Color(hit.uv) * light->Emitted_Light(light_dir) * pow(cos_alpha, specular_power);
-
-//         color += diffuse + specular;
-//     }
-
-//     return color;
-// }
-
 vec3 Phong_Shader::
 Shade_Surface(const Render_World& render_world, const Ray& ray, const Hit& hit,
     const vec3& intersection_point, const vec3& normal, int recursion_depth) const
