@@ -18,9 +18,33 @@ Render_World::~Render_World()
 
 // Find and return the Hit structure for the closest intersection.  Be careful
 // to ensure that hit.dist>=small_t.
-std::pair<Shaded_Object,Hit> Render_World::Closest_Intersection(const Ray& ray) const
+std::pair<Shaded_Object, Hit> Render_World::Closest_Intersection(const Ray& ray) const
 {
     Debug_Scope scope;
+
+    // --- ACCELERATION PATH ---
+    if (enable_acceleration) {
+        std::pair<int, Hit> accel_result = acceleration.Closest_Intersection(ray);
+        
+        if (accel_result.first >= 0) {
+            Shaded_Object so = objects[accel_result.first];
+            
+            Pixel_Print("closest intersection; obj: ", so.object->name,
+                        "; hit: (dist: ", accel_result.second.dist,
+                        "; triangle: ", accel_result.second.triangle,
+                        "; uv: ", accel_result.second.uv, ")");
+            
+            return {so, accel_result.second};
+        }
+        
+        // FIX: Create a named variable to avoid ambiguous brace initialization
+        std::pair<Shaded_Object, Hit> no_hit;
+        no_hit.first.object = nullptr;
+        no_hit.second.dist = std::numeric_limits<double>::infinity();
+        return no_hit;
+    }
+
+    // --- SLOW FALLBACK PATH ---
     float min_t = std::numeric_limits<float>::max();
     std::pair<Shaded_Object, Hit> closest;
     closest.first.object = nullptr; 
@@ -30,17 +54,14 @@ std::pair<Shaded_Object,Hit> Render_World::Closest_Intersection(const Ray& ray) 
         const auto& obj = objects[i];
         Hit hit = obj.object->Intersection(ray, -1);
 
-        if (hit.dist >= small_t) {
+        if (hit.dist >= small_t && hit.dist < min_t) {
+            min_t = hit.dist;
+            closest.first = obj;
+            closest.second = hit;
+            
             Pixel_Print("intersect test with ", obj.object->name , "; hit: (dist: ", hit.dist,
                         "; triangle: ", hit.triangle,
                         "; uv: ", hit.uv, ")");
-            if (hit.dist < min_t) {
-                min_t = hit.dist;
-                closest.first = obj;
-                closest.second = hit;
-            }
-        } else {
-            Pixel_Print("no intersection with ", obj.object->name, "");
         }
     }
 

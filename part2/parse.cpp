@@ -80,6 +80,13 @@ void Parse::Parse_Input(Render_World& render_world, std::istream& in)
         }
         assert(ss);
     }
+    for(int i = 0; i < (int)render_world.objects.size(); ++i) {
+        render_world.acceleration.Add_Object(
+            render_world.objects[i].object, 
+            i
+        );
+    }
+    render_world.acceleration.Initialize();
     render_world.camera.Set_Resolution(ivec2(width,height));
 }
 

@@ -27,11 +27,23 @@ Hit Sphere::Intersection(const Ray& ray, int part) const
         float t0 = (-b - sqrt_disc) / (2.0f * a);
         float t1 = (-b + sqrt_disc) / (2.0f * a);
 
-        if (t0 >= small_t) {
-            hit.dist = t0;
-        } else if (t1 >= small_t) {
-            hit.dist = t1;
-        }
+        // if (t0 >= small_t) {
+        //     hit.dist = t0;
+        // } else if (t1 >= small_t) {
+        //     hit.dist = t1;
+        // }
+
+        if (t0 >= small_t || t1 >= small_t) {
+        hit.dist = (t0 >= small_t) ? t0 : t1;
+        
+        vec3 hit_point = ray.Point(hit.dist);
+        vec3 d = (hit_point - center).normalized();
+        
+        double phi = atan2(d[2], d[0]);
+        double theta = asin(d[1]);
+        hit.uv[0] = 0.5 - phi / (2.0 * M_PI);
+        hit.uv[1] = 0.5 + theta / M_PI;
+    }
     }
     return hit;
 }

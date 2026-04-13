@@ -1,0 +1,5 @@
+*.o
+*.dblite
+*.zip
+*.png
+ray_tracer

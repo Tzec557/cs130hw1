@@ -16,6 +16,7 @@ Mesh::Mesh(const Parse* parse, std::istream& in)
 }
 
 // Read in a mesh from an obj file.  Populates the bounding box and registers
+// one part per triangle (by setting number_parts).
 void Mesh::Read_Obj(const char* file)
 {
     std::ifstream fin(file);
@@ -63,11 +64,13 @@ void Mesh::Read_Obj(const char* file)
 Hit Mesh::Intersection(const Ray& ray, int part) const
 {
     // If part is >= 0, the acceleration structure is asking us to test 
+    // ONE specific triangle. This is the fast path!
     if (part >= 0 && part < (int)triangles.size()) {
         return Intersect_Triangle(ray, part);
     }
 
     // If part is -1, we have to check EVERY triangle. 
+    // This is the slow path (fallback).
     Hit closest_hit;
     closest_hit.dist = std::numeric_limits<double>::infinity();
 

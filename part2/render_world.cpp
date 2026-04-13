@@ -18,9 +18,29 @@ Render_World::~Render_World()
 
 // Find and return the Hit structure for the closest intersection.  Be careful
 // to ensure that hit.dist>=small_t.
-std::pair<Shaded_Object,Hit> Render_World::Closest_Intersection(const Ray& ray) const
+std::pair<Shaded_Object, Hit> Render_World::Closest_Intersection(const Ray& ray) const
 {
     Debug_Scope scope;
+    if (enable_acceleration) {
+        std::pair<int, Hit> accel_result = acceleration.Closest_Intersection(ray);
+        
+        if (accel_result.first >= 0) {
+            Shaded_Object so = objects[accel_result.first];
+            
+            Pixel_Print("closest intersection; obj: ", so.object->name,
+                        "; hit: (dist: ", accel_result.second.dist,
+                        "; triangle: ", accel_result.second.triangle,
+                        "; uv: ", accel_result.second.uv, ")");
+            
+            return {so, accel_result.second};
+        }
+        
+        std::pair<Shaded_Object, Hit> no_hit;
+        no_hit.first.object = nullptr;
+        no_hit.second.dist = std::numeric_limits<double>::infinity();
+        return no_hit;
+    }
+
     float min_t = std::numeric_limits<float>::max();
     std::pair<Shaded_Object, Hit> closest;
     closest.first.object = nullptr; 
@@ -30,17 +50,14 @@ std::pair<Shaded_Object,Hit> Render_World::Closest_Intersection(const Ray& ray) 
         const auto& obj = objects[i];
         Hit hit = obj.object->Intersection(ray, -1);
 
-        if (hit.dist >= small_t) {
+        if (hit.dist >= small_t && hit.dist < min_t) {
+            min_t = hit.dist;
+            closest.first = obj;
+            closest.second = hit;
+            
             Pixel_Print("intersect test with ", obj.object->name , "; hit: (dist: ", hit.dist,
                         "; triangle: ", hit.triangle,
                         "; uv: ", hit.uv, ")");
-            if (hit.dist < min_t) {
-                min_t = hit.dist;
-                closest.first = obj;
-                closest.second = hit;
-            }
-        } else {
-            Pixel_Print("no intersection with ", obj.object->name, "");
         }
     }
 
@@ -58,17 +75,27 @@ std::pair<Shaded_Object,Hit> Render_World::Closest_Intersection(const Ray& ray) 
 // set up the initial view ray and call
 void Render_World::Render_Pixel(const ivec2& pixel_index)
 {
-    Debug_Scope scope;
-    vec3 ray_origin = camera.position;
-    vec3 world_pos = camera.World_Position(pixel_index);
-    vec3 ray_direction = (world_pos - ray_origin).normalized();
-    Ray ray(ray_origin, ray_direction);
+    vec3 total_color(0, 0, 0);
+    int samples = 1; // 4x4 = 16 samples per pixel
 
-    Pixel_Print("cast ray (end: ", ray.endpoint, "; dir: ", ray.direction, ")");
+    for (int i = 0; i < samples; ++i) {
+        for (int j = 0; j < samples; ++j) {
+            // Sub-pixel offsets
+            double dx = (i + 0.5) / samples;
+            double dy = (j + 0.5) / samples;
 
+            // Now passing a vec2 (doubles) to World_Position
+            vec2 sub_pixel(pixel_index[0] + dx, pixel_index[1] + dy);
+            
+            vec3 world_pos = camera.World_Position(sub_pixel);
+            Ray ray(camera.position, (world_pos - camera.position).normalized());
 
-    vec3 color = Cast_Ray(ray, 1);
-    camera.Set_Pixel(pixel_index, Pixel_Color(color));
+            total_color += Cast_Ray(ray, 1);
+        }
+    }
+
+    vec3 final_color = total_color / (double)(samples * samples);
+    camera.Set_Pixel(pixel_index, Pixel_Color(final_color));
 }
 
 void Render_World::Render()

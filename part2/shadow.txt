@@ -1,0 +1,20 @@
+# Camera: position, look_at, up, focal_dist, aspect, fov
+camera 0 5 10 0 0 -1 0 1 0 1 1.33 0.785
+
+# Colors
+ambient 0.1 0.1 0.1 1
+background 0 0 0
+
+# Light: name, position, color, brightness
+light lamp 0 10 0 1 1 1 100
+
+# Plane (The Floor): name, point, normal
+# Using a flat shader for the floor so shadows are obvious
+flat_shader floor_shader 0 0 1
+plane floor 0 0 0 0 1 0 floor_shader
+
+# Sphere (The Object): name, center, radius
+phong_shader sphere_shader 0.1 0.1 0.1 0.8 0.1 0.1 1 1 1 50
+sphere ball 0 2 0 1 sphere_shader
+
+enable_shadows 1

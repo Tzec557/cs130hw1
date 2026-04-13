@@ -1,0 +1,14 @@
+size 640 480
+color white 1 1 1
+color blue 0 0 1
+color black 0 0 0
+phong_shader floor_shader blue blue white 10
+phong_shader sphere_shader white white white 50
+sphere S1 0 2 0 1
+shaded_object S1 sphere_shader
+plane P1 0 0 0 0 1 0
+shaded_object P1 floor_shader
+point_light L0 0 10 2 white 200
+ambient_light white 0.1
+enable_shadows 1
+camera 0 4 8 0 1 0 0 1 0 70

@@ -6,7 +6,7 @@
 #include "point_light.h"
 #include "reflective_shader.h"
 #include "sphere.h"
-// #include "texture.h"
+#include "texture.h"
 #include "transparent_shader.h"
 
 void Setup_Parsing(Parse& parse)
@@ -23,5 +23,5 @@ void Setup_Parsing(Parse& parse)
     parse.template Register_Shader<Transparent_Shader>();
 
     parse.template Register_Color<Fixed_Color>();
-//     parse.template Register_Color<Texture>();
+    parse.template Register_Color<Texture>();
 }
