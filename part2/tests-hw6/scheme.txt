@@ -1,0 +1,6 @@
+# <num-points> <max-error> <test>
+2 0.10 tests-hw6/00.txt
+2 0.10 tests-hw6/01.txt
+2 0.10 tests-hw6/02.txt
+2 0.10 tests-hw6/03.txt
+2 0.10 tests-hw6/04.txt

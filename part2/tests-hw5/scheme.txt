@@ -1,0 +1,13 @@
+# <num-points> <max-error> <test>
+3 0.10 tests-hw5/00.txt
+3 0.10 tests-hw5/01.txt
+3 0.10 tests-hw5/02.txt
+2 0.10 tests-hw5/03.txt
+2 0.10 tests-hw5/04.txt
+1 0.10 tests-hw5/05.txt
+1 0.10 tests-hw5/06.txt
+1 0.10 tests-hw5/07.txt
+1 0.10 tests-hw5/08.txt
+1 0.10 tests-hw5/09.txt
+1 0.10 tests-hw5/10.txt
+1 0.10 tests-hw5/11.txt

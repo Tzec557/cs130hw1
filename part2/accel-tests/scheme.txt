@@ -1,0 +1,6 @@
+# <num-points> <max-error> <test>
+5 0.10 accel-tests/00.txt
+5 0.10 accel-tests/01.txt
+5 0.10 accel-tests/02.txt
+5 0.10 accel-tests/03.txt
+5 0.10 accel-tests/04.txt
